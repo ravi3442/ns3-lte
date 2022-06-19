@@ -24,6 +24,11 @@
  #include "ns3/point-to-point-module.h"
  #include "ns3/applications-module.h"
  #include "ns3/csma-module.h"
+ #include "ns3/netanim-module.h"
+
+ //Added for flow monitor
+#include "ns3/flow-monitor.h"
+#include "ns3/flow-monitor-helper.h"
   
  using namespace ns3;
   
@@ -203,6 +208,12 @@
    httpClient1->TraceConnectWithoutContext ("RxMainObject", MakeCallback (&ClientMainObjectReceived));
    httpClient1->TraceConnectWithoutContext ("RxEmbeddedObject", MakeCallback (&ClientEmbeddedObjectReceived));
    httpClient1->TraceConnect("Rx", "Client 2", MakeCallback (&ClientRx));
+
+
+   //---------------------------------------------
+   AnimationInterface anim ("test-http.xml");
+   anim.SetMaxPktsPerTraceFile(10000000); // abhishek
+//---------------------------------------------
   
    // Stop browsing after 30 minutes
    clientApps_http.Stop (Seconds (simTimeSec));
